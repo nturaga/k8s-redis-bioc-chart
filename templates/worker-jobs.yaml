@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.redis_worker_name}}
+spec:
+  parallelism: 5
+  template:
+    metadata:
+      name: {{ .Values.redis_worker_name}}
+    spec:
+      containers:
+      - name: {{ .Values.redis_worker_name}}
+        image: {{ .Values.customImage.repository}}
+        command: ["R"]
+        args: ["-f", "/home/rstudio/worker.R"]
+        imagePullPolicy: {{ .Values.customImage.pullPolicy}}
+      restartPolicy: OnFailure

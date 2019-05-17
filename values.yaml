@@ -1,0 +1,34 @@
+# Default values for k8s-redis-bioc-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+manager_name: manager
+rstudio_app_name: rstudio
+redis_app_name: redis
+redis_master_name: redis-master
+redis_worker_name: worker
+
+customImage:
+  repository: nitesh1989/k8s-redis-bioc-image
+  tag: latest
+  pullPolicy: IfNotPresent
+  containerPort: 8787
+
+customImageEnv:
+  name: PASSWORD
+  value: bioc
+
+customImageService:
+  type: NodePort
+  port: 8787
+  nodePort: 30001
+  name: http
+
+redisImage:
+  repository: redis
+  containerPort: 6379
+  pullPolicy: IfNotPresent
+
+redisImageEnv:
+  name: master
+  value: true
